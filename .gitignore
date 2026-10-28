@@ -1,0 +1,23 @@
+# .NET build
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+
+# Node / Vite
+**/node_modules/
+**/dist/
+**/dist-ssr/
+*.local
+
+# Editor / OS
+.idea/
+.DS_Store
+Thumbs.db
+~$*
+*.log
+
+# Tài liệu chỉ giữ ở máy
+/README.md
+/HUONG_DAN_CHAY.md

@@ -1,0 +1,35 @@
+﻿version: '3.8'
+
+services:
+
+  sqlserver:
+    container_name: sqlserver
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      MSSQL_SA_PASSWORD: "Password123@"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    restart: always
+
+  dacn-backend:
+    container_name: dacn-backend
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8080
+      - "ConnectionStrings:DefaultConnection=Server=sqlserver;Database=DACN_H;User Id=sa;Password=Password123@;TrustServerCertificate=True"
+    ports:
+      - "7000:8080"
+    depends_on:
+      - sqlserver
+    restart: always
+
+volumes:
+  sql_data:
+    name: sql_data

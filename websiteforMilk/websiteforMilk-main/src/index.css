@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+/* Bảng màu NutriMilk theo thiết kế trong báo cáo */
+@theme {
+  --color-navy: #1e3a8a;
+  --color-navy-dark: #172e6e;
+  --color-sky: #76d3fd;
+  --color-sky-dark: #4fc3f7;
+  --color-cyan: #00b8f5;
+  --color-brand: #0a84d6;
+  --color-brand-dark: #076fb5;
+  --color-price: #e00000;
+  --color-admin: #111827;
+  --font-sans: "Be Vietnam Pro", "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: #111827;
+  font-family: var(--font-sans);
+}
+
+/* Nền trời xanh nhạt có mây như ảnh chụp giao diện */
+.sky-bg {
+  background-color: #e8f3fd;
+  background-image:
+    radial-gradient(ellipse 40% 30% at 15% 20%, rgba(255, 255, 255, 0.85), transparent 70%),
+    radial-gradient(ellipse 35% 25% at 80% 35%, rgba(255, 255, 255, 0.75), transparent 70%),
+    radial-gradient(ellipse 50% 30% at 40% 75%, rgba(255, 255, 255, 0.8), transparent 70%),
+    radial-gradient(ellipse 30% 25% at 90% 85%, rgba(255, 255, 255, 0.7), transparent 70%),
+    linear-gradient(180deg, #d6ebfc 0%, #eef6fe 60%, #f7fbff 100%);
+  background-attachment: fixed;
+}
+
+/* Bảng dữ liệu trang admin: viền đen mảnh, chữ căn giữa */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+.admin-table th,
+.admin-table td {
+  border: 1px solid #1f2937;
+  padding: 0.75rem 0.75rem;
+  text-align: center;
+}
+.admin-table th {
+  background: #f3f4f6;
+  font-weight: 700;
+}

@@ -1,0 +1,6 @@
+@DACN_H_P_HostAddress = http://localhost:5014
+
+GET {{DACN_H_P_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
