@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
-  // Backend ASP.NET Core (DACN_BE-master) chạy ở profile "http" mặc định: http://localhost:5014
+  // Backend ASP.NET Core (backend/) chạy ở profile "http" mặc định: http://localhost:5014
   // Đổi bằng biến API_TARGET trong file .env.local hoặc biến môi trường
   const env = loadEnv(mode, '.', '')
   const proxy = {
