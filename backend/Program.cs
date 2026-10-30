@@ -1,5 +1,6 @@
 ﻿
 using DACN_H_P.Helper;
+using DACN_H_P.Middleware;
 using DACN_H_P.Model;
 using DACN_H_P.Repository;
 using DACN_H_P.Repository.Impl;
@@ -116,6 +117,8 @@ namespace DACN_H_P
             });
 
             var app = builder.Build();
+
+            app.UseMiddleware<ExceptionHandlingMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
