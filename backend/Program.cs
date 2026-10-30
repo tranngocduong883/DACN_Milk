@@ -9,6 +9,7 @@ using DACN_H_P.Service.Impl;
 using DACN_H_P.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -23,7 +24,19 @@ namespace DACN_H_P
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    // Trả lỗi validate theo cùng định dạng APIResponse, lấy thông báo lỗi đầu tiên
+                    options.InvalidModelStateResponseFactory = context =>
+                    {
+                        var message = context.ModelState.Values
+                            .SelectMany(v => v.Errors)
+                            .Select(e => e.ErrorMessage)
+                            .FirstOrDefault(m => !string.IsNullOrWhiteSpace(m)) ?? "Dữ liệu không hợp lệ";
+                        return new BadRequestObjectResult(APIResponse<object>.Fail(message));
+                    };
+                });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(options =>
