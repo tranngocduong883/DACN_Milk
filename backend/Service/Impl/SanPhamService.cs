@@ -26,6 +26,18 @@ namespace DACN_H_P.Service.Impl
             return result.Select(SanPhamBuilder.ToResponse).ToList();
         }
 
+        public async Task<PagedResponse<SanPhamResponse>> SearchAsync(SanPhamQuery query)
+        {
+            var (items, total) = await _repo.SearchAsync(query);
+            return new PagedResponse<SanPhamResponse>
+            {
+                Items = items.Select(SanPhamBuilder.ToResponse).ToList(),
+                Page = query.Page,
+                PageSize = query.PageSize,
+                TotalItems = total
+            };
+        }
+
         public async Task<SanPhamResponse?> GetByMaSP(string masp)
         {
             var result = await _repo.GetByMaSP(masp);

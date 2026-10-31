@@ -23,6 +23,14 @@ namespace DACN_H_P.Controllers
             var result = await _service.GetAllAsync();
             return Ok(APIResponse<IEnumerable<SanPhamResponse>>.OK("Lấy danh sách thành công", result));
         }
+        // GET api/SanPham/search?page=1&pageSize=12&maDM=DM01&tuKhoa=sua&giaTu=10000&giaDen=50000&sapXep=gia_asc
+        [HttpGet]
+        [Route("search")]
+        public async Task<IActionResult> SearchAsync([FromQuery] SanPhamQuery query)
+        {
+            var result = await _service.SearchAsync(query);
+            return Ok(APIResponse<PagedResponse<SanPhamResponse>>.OK("Lấy danh sách thành công", result));
+        }
         [HttpGet]
         [Route("by-masp/{masp}")]
         public async Task<IActionResult> GetByMaSP(string masp)

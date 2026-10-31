@@ -6,6 +6,7 @@ namespace DACN_H_P.Service
     public interface ISanPhamService
     {
         Task<IEnumerable<SanPhamResponse>> GetAllAsync();
+        Task<PagedResponse<SanPhamResponse>> SearchAsync(SanPhamQuery query);
         Task<SanPhamResponse?> GetByMaSP(string masp);
         Task<IEnumerable<SanPhamResponse?>> GetByTenSP(string tensp);
         Task<IEnumerable<SanPhamResponse?>> GetByMaDM(string madm);

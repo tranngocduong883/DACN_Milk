@@ -1,4 +1,5 @@
-﻿using DACN_H_P.Model;
+﻿using DACN_H_P.Dtos.Request;
+using DACN_H_P.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace DACN_H_P.Repository.Impl
@@ -25,6 +26,49 @@ namespace DACN_H_P.Repository.Impl
         public async Task<IEnumerable<SanPham>> GetAllAsync()
         {
             return await _context.SanPhams.Include(p => p.MaDanhMucNavigation).Include(p => p.AnhSps).Include(p => p.ChiTietKms).ThenInclude(p => p.MaKhuyenMaiNavigation).ToListAsync();
+        }
+        public async Task<(IEnumerable<SanPham> items, int total)> SearchAsync(SanPhamQuery query)
+        {
+            var sanPhams = _context.SanPhams.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query.MaDM))
+            {
+                sanPhams = sanPhams.Where(p => p.MaDanhMuc == query.MaDM);
+            }
+            if (!string.IsNullOrWhiteSpace(query.TuKhoa))
+            {
+                var tuKhoa = query.TuKhoa.Trim().ToLower();
+                sanPhams = sanPhams.Where(p => p.TenSp.ToLower().Contains(tuKhoa));
+            }
+            if (query.GiaTu.HasValue)
+            {
+                sanPhams = sanPhams.Where(p => p.Gia >= query.GiaTu.Value);
+            }
+            if (query.GiaDen.HasValue)
+            {
+                sanPhams = sanPhams.Where(p => p.Gia <= query.GiaDen.Value);
+            }
+
+            // Đếm tổng trước khi phân trang để client tính số trang
+            var total = await sanPhams.CountAsync();
+
+            sanPhams = query.SapXep switch
+            {
+                "gia_asc" => sanPhams.OrderBy(p => p.Gia).ThenBy(p => p.MaSp),
+                "gia_desc" => sanPhams.OrderByDescending(p => p.Gia).ThenBy(p => p.MaSp),
+                "ten_asc" => sanPhams.OrderBy(p => p.TenSp).ThenBy(p => p.MaSp),
+                "ten_desc" => sanPhams.OrderByDescending(p => p.TenSp).ThenBy(p => p.MaSp),
+                _ => sanPhams.OrderBy(p => p.MaSp)
+            };
+
+            var items = await sanPhams
+                .Skip((query.Page - 1) * query.PageSize)
+                .Take(query.PageSize)
+                .Include(p => p.MaDanhMucNavigation).Include(p => p.AnhSps).Include(p => p.ChiTietKms).ThenInclude(p => p.MaKhuyenMaiNavigation)
+                .AsSplitQuery()
+                .ToListAsync();
+
+            return (items, total);
         }
         public async Task<SanPham?> GetByMaSP(string masp)
         {

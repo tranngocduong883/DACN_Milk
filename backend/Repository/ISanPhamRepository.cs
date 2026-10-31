@@ -1,4 +1,5 @@
-﻿using DACN_H_P.Dtos.Response;
+﻿using DACN_H_P.Dtos.Request;
+using DACN_H_P.Dtos.Response;
 using DACN_H_P.Model;
 
 namespace DACN_H_P.Repository
@@ -6,6 +7,7 @@ namespace DACN_H_P.Repository
     public interface ISanPhamRepository
     {
         Task<IEnumerable<SanPham>> GetAllAsync();
+        Task<(IEnumerable<SanPham> items, int total)> SearchAsync(SanPhamQuery query);
         Task<SanPham?> GetByMaSP(string masp);
         Task<IEnumerable<SanPham?>> GetByTenSP(string tensp);
         Task<IEnumerable<SanPham?>> GetByMaDM(string madm);
