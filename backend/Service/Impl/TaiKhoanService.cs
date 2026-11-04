@@ -33,6 +33,11 @@ namespace DACN_H_P.Service.Impl
             {
                 return (false, "Tên đăng nhập đã tồn tại");
             }
+            // Cột email có ràng buộc UNIQUE: kiểm tra trước để trả 400 thay vì để DB ném lỗi (500)
+            if (!string.IsNullOrEmpty(request.Email) && await _repo.GetByEmailAsync(request.Email) != null)
+            {
+                return (false, "Email đã được sử dụng");
+            }
             var tk = new TaiKhoan
             {
                 MaTaiKhoan = Guid.NewGuid().ToString(),
@@ -117,6 +122,15 @@ namespace DACN_H_P.Service.Impl
         {
             var tk = await _repo.GetByMaTaiKhoan(id);
             if (tk == null) return (false, "Tài khoản không tồn tại", null);
+
+            if (!string.IsNullOrEmpty(request.Email) && request.Email != tk.Email)
+            {
+                var owner = await _repo.GetByEmailAsync(request.Email);
+                if (owner != null && owner.MaTaiKhoan != tk.MaTaiKhoan)
+                {
+                    return (false, "Email đã được sử dụng", null);
+                }
+            }
 
             tk.HoTen = request.HoTen ?? tk.HoTen;
             tk.SoDienThoai = request.SoDienThoai ?? tk.SoDienThoai;

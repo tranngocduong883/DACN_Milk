@@ -16,6 +16,10 @@ namespace DACN_H_P.Repository.Impl
         {
             return await _context.TaiKhoans.FirstOrDefaultAsync(tk => tk.TenDangNhap == username);
         }
+        public async Task<TaiKhoan?> GetByEmailAsync(string email)
+        {
+            return await _context.TaiKhoans.FirstOrDefaultAsync(tk => tk.Email == email);
+        }
         public async Task<List<TaiKhoan>> GetAllTaiKhoan()
         {
             return await _context.TaiKhoans.AsNoTracking().ToListAsync();

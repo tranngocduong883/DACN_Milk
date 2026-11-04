@@ -5,6 +5,7 @@ namespace DACN_H_P.Repository
     public interface ITaiKhoanRepository
     {
         Task<TaiKhoan?> GetByTenDangNhapAsync(string tenDangNhap);
+        Task<TaiKhoan?> GetByEmailAsync(string email);
         Task AddAsync(TaiKhoan taiKhoan);
         Task SavechangeAsync();
 
