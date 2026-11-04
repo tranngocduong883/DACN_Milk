@@ -1,5 +1,5 @@
 -- Dữ liệu mẫu sản phẩm cho DACN_H (chạy sau init-db.sql).
--- Ảnh dùng đường dẫn tương đối /images/... do frontend (websiteforMilk/public/images) phục vụ.
+-- Ảnh dùng đường dẫn tương đối /images/... do frontend (frontend/public/images) phục vụ.
 USE DACN_H
 GO
 IF NOT EXISTS (SELECT 1 FROM SAN_PHAM)

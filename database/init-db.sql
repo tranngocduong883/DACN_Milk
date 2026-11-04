@@ -28,7 +28,7 @@ CREATE TABLE DANH_MUC (
 CREATE TABLE PHUONG_THUC_VC (
     maPTVC VARCHAR(50) PRIMARY KEY,
     tenPTVC NVARCHAR(100) NOT NULL,
-    phiVanChuyen DECIMAL(18, 2) NOT NULL DEFAULT 0 -- Đã chuẩn hóa về Decimal(18,2)
+    phiVanChuyen DECIMAL(18, 2) NOT NULL DEFAULT 0
 );
 
 CREATE TABLE PHUONG_THUC_TT (
@@ -39,11 +39,11 @@ CREATE TABLE PHUONG_THUC_TT (
 CREATE TABLE VOUCHER (
     maVoucher VARCHAR(50) PRIMARY KEY,
     tenVoucher NVARCHAR(100),
-    giamGia DECIMAL(18, 2) NOT NULL DEFAULT 0, -- Đã đổi từ phanTramGiam sang giamGia (tiền mặt)
+    giamGia DECIMAL(18, 2) NOT NULL DEFAULT 0,
     ngayBatDau DATETIME NOT NULL,
     ngayKetThuc DATETIME NOT NULL,
-    dieuKienApDung DECIMAL(18, 0), -- Đã đổi từ String sang Decimal để so sánh tiền
-    moTa NVARCHAR(MAX) -- Đã thêm mới
+    dieuKienApDung DECIMAL(18, 0),
+    moTa NVARCHAR(MAX)
 );
 
 CREATE TABLE KHUYEN_MAI (
@@ -69,7 +69,7 @@ CREATE TABLE CUA_HANG (
 
 CREATE TABLE SAN_PHAM (
     maSP VARCHAR(50) PRIMARY KEY,
-    tenSP NVARCHAR(100) NOT NULL, -- Đã thêm cột này vào lúc tạo bảng
+    tenSP NVARCHAR(100) NOT NULL,
     maDanhMuc VARCHAR(50),
     gia DECIMAL(18, 2) NOT NULL,
     moTa NVARCHAR(MAX),

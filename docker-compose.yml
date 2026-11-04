@@ -1,6 +1,4 @@
-﻿version: '3.8'
-
-services:
+﻿services:
 
   sqlserver:
     container_name: sqlserver
@@ -12,14 +10,14 @@ services:
       - "1433:1433"
     volumes:
       - sql_data:/var/opt/mssql
-      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+      - ./database:/database
     restart: always
 
   dacn-backend:
     container_name: dacn-backend
     build:
-      context: .
-      dockerfile: ./Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
