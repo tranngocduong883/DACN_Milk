@@ -19,5 +19,7 @@ Thumbs.db
 *.log
 
 # Tài liệu chỉ giữ ở máy
-/README.md
 /HUONG_DAN_CHAY.md
+
+# Báo cáo Newman sinh ra khi chạy test
+newman/
