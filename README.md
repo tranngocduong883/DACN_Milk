@@ -6,7 +6,6 @@ Website thương mại điện tử bán sữa cho thương hiệu NutriMilk, g�
 ![React](https://img.shields.io/badge/React-19-61DAFB)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6)
 ![SQL Server](https://img.shields.io/badge/SQL%20Server-2019-CC2927)
-![Postman](https://img.shields.io/badge/API%20tests-Postman%20%2F%20Newman-FF6C37)
 
 ## Chức năng
 
@@ -21,7 +20,7 @@ Website thương mại điện tử bán sữa cho thương hiệu NutriMilk, g�
 | Backend | ASP.NET Core 8 Web API, Entity Framework Core, JWT, Swagger |
 | Frontend | React 19, TypeScript, Vite, React Router, Tailwind CSS |
 | Cơ sở dữ liệu | SQL Server 2019 |
-| Kiểm thử | Manual test case, Postman / Newman |
+| Kiểm thử | Manual test case, Postman |
 | Triển khai | Docker Compose |
 
 ## Cấu trúc thư mục
@@ -31,7 +30,6 @@ Website thương mại điện tử bán sữa cho thương hiệu NutriMilk, g�
 ├── frontend/             React + TypeScript
 ├── database/             Script tạo cơ sở dữ liệu và dữ liệu mẫu
 ├── docs/                 Báo cáo đồ án, biểu đồ use case, ERD
-├── test/                 Test case, báo cáo kiểm thử, bug report, test API tự động
 └── docker-compose.yml    Chạy SQL Server và backend bằng Docker
 ```
 
@@ -88,13 +86,7 @@ Với image SQL Server cũ, đường dẫn là `/opt/mssql-tools/bin/sqlcmd` v�
 
 ## Kiểm thử
 
-- **42 test case thủ công** cho 10 chức năng, 100% Pass – [test-cases.md](test/test-cases.md), [báo cáo](test/test-report.md)
-- **Test API tự động** bằng Postman: 14 request, 28 assertion, gồm kiểm thử giá trị biên và phân quyền – [hướng dẫn chạy](test/README.md)
-- **Bug report:** [BUG-01](test/bug-reports.md) – đăng ký trùng email trả về lỗi 500, phát hiện bằng test API tự động, đã sửa và retest
-
-```bash
-npx newman run test/api/NutriMilk.postman_collection.json --env-var baseUrl=http://localhost:5014
-```
+42 test case thủ công cho 10 chức năng, chạy trên Chrome và Edge; test API bằng Postman. Kế hoạch, test case và báo cáo kiểm thử nằm ở chương 4 của [báo cáo đồ án](docs/BaoCao_DoAn_NutriMilk.pdf).
 
 ## Tài liệu
 
