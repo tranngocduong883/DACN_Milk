@@ -135,7 +135,11 @@ namespace DACN_H_P.Service.Impl
             tk.HoTen = request.HoTen ?? tk.HoTen;
             tk.SoDienThoai = request.SoDienThoai ?? tk.SoDienThoai;
             tk.DiaChi = request.DiaChi ?? tk.DiaChi;
-            tk.Email = request.Email ?? tk.Email;
+            // Ô email để trống gửi lên chuỗi rỗng: lưu NULL để không bị tính là trùng giữa các tài khoản
+            if (request.Email != null)
+            {
+                tk.Email = request.Email == "" ? null : request.Email;
+            }
 
             await _repo.UpdateAsync(tk);
             return (true, "Cập nhật thông tin thành công", TaiKhoanBuilder.ToResponse(tk));

@@ -418,7 +418,7 @@ public partial class DacnHContext : DbContext
 
             entity.HasIndex(e => e.TenDangNhap, "UQ__TAI_KHOA__59267D4A64403C8C").IsUnique();
 
-            entity.HasIndex(e => e.Email, "UQ__TAI_KHOA__AB6E616424B5683B").IsUnique();
+            entity.HasIndex(e => e.Email, "UX_TaiKhoan_Email").IsUnique().HasFilter("[email] IS NOT NULL");
 
             entity.Property(e => e.MaTaiKhoan)
                 .HasMaxLength(50)

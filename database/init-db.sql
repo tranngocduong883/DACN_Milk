@@ -1,4 +1,6 @@
-﻿USE master
+﻿SET QUOTED_IDENTIFIER ON
+GO
+USE master
 GO
 CREATE DATABASE DACN_H
 GO
@@ -12,12 +14,15 @@ CREATE TABLE TAI_KHOAN (
     maTaiKhoan VARCHAR(50) PRIMARY KEY,
     tenDangNhap VARCHAR(100) NOT NULL UNIQUE,
     matKhau VARCHAR(255) NOT NULL,
-    email VARCHAR(100) UNIQUE,
+    email VARCHAR(100),
     hoTen NVARCHAR(100),
     soDienThoai VARCHAR(20),
     vaiTro NVARCHAR(50), -- 'admin', 'user'
     diaChi NVARCHAR(MAX)
 );
+
+-- Email không bắt buộc: UNIQUE thường chỉ cho một giá trị NULL nên dùng index có điều kiện
+CREATE UNIQUE INDEX UX_TaiKhoan_Email ON TAI_KHOAN(email) WHERE email IS NOT NULL;
 
 CREATE TABLE DANH_MUC (
     maDanhMuc VARCHAR(50) PRIMARY KEY,
